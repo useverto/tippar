@@ -2,11 +2,20 @@ import Arweave from "arweave";
 import { readContract, selectWeightedPstHolder } from "smartweave";
 import { tx } from "ar-gql";
 
+/**
+ * Choose a recipient of a tip based on a contract and mode
+ *
+ * @param client Arweave client
+ * @param contract Profit-Sharing token contract to choose holder from
+ * @param mode Optional parameter for setting type of selection ("weightedRandom" or "greatest" | Defaults to "weightedRandom")
+ *
+ * @returns Arweave wallet of selected token holder
+ */
 export async function chooseRecipient(
   client: Arweave,
   contract: string,
   mode?: string
-): Promise<any> {
+): Promise<string> {
   const state = await readContract(client, contract);
   let balances: {
     [key: string]: number;
