@@ -1,6 +1,6 @@
 {
   "name": "@verto/tippar",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Tipping for Profit-Sharing Communities made easy",
   "main": "dist/index.js",
   "dependencies": {
