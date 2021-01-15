@@ -4,6 +4,7 @@
   "description": "Tipping for Profit-Sharing Communities made easy",
   "main": "dist/index.js",
   "dependencies": {
+    "ar-gql": "^0.0.3",
     "arweave": "^1.10.0",
     "smartweave": "^0.4.23"
   },
