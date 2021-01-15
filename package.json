@@ -23,7 +23,7 @@
     "build": "rollup -c",
     "fmt": "prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "bruh": "rm -R dist && rollup -c && node ./dist/index.js"
+    "testing": "rm -R dist && rollup -c && node ./dist/index.js"
   },
   "repository": {
     "type": "git",

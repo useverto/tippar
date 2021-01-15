@@ -2,21 +2,15 @@ import Arweave from "arweave";
 import { readContract, selectWeightedPstHolder } from "smartweave";
 import { tx } from "ar-gql";
 
-const client = Arweave.init({
-  host: "arweave.net",
-  port: 443,
-  protocol: "https",
-  timeout: 20000,
-  logging: false,
-});
-
 export async function chooseRecipient(
   client: Arweave,
   contract: string,
   mode?: string
 ): Promise<any> {
   const state = await readContract(client, contract);
-  const balances = state.balances;
+  let balances: {
+    [key: string]: number;
+  } = state.balances;
   const vault = state.vault;
   let chosenRecipient: string;
 
@@ -39,7 +33,10 @@ export async function chooseRecipient(
     chosenRecipient = selectWeightedPstHolder(balances);
   } else if (mode === "greatest") {
     // Choose greatest token holder
-    chosenRecipient = "";
+    balances = Object.fromEntries(
+      Object.entries(balances).sort(([, a], [, b]) => b - a)
+    );
+    chosenRecipient = Object.keys(balances)[0];
   } else {
     throw new Error("There was a problem parsing the chooseRecipient mode");
   }
@@ -50,7 +47,7 @@ export async function chooseRecipient(
   if (transactionResponse !== null) {
     // Chosen user might be a SmartWeave Contract
     let swContract: boolean = false;
-    transactionResponse.tags.forEach(tag => {
+    transactionResponse.tags.forEach((tag) => {
       if (tag.name === "App-Name" && tag.value === "SmartWeaveContract")
         swContract = true;
     });
@@ -73,14 +70,3 @@ export async function chooseRecipient(
   }
   return chosenRecipient;
 }
-
-async function testThis() {
-  const stupid = await chooseRecipient(
-    client,
-    "usjm4PCxUd5mtaon7zc97-dt-3qf67yPyqgzLnLqk5A",
-    "weightedRandom"
-  );
-  console.log("RESPONSE: " + stupid);
-}
-
-testThis();

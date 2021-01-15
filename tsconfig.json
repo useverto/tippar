@@ -2,7 +2,7 @@
   "compilerOptions": {
     "strict": true,
     "declaration": true,
-    "lib": ["ES6", "DOM"],
+    "lib": ["ES2019", "DOM"],
     "esModuleInterop": true
   }
 }
