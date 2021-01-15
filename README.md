@@ -21,9 +21,14 @@ if holder === contract (B)
 ```
 
 **Real-World Example:**
+
 An ArDrive user is sending a tip to an ArDrive holder. If the random token-holder selected to receive the tip is the Verto Contract, a new token-holder is calculated from the users who hold a balance of VRT. This means that the ArDrive tip will now be sent to the VRT token holder.
 
-## Integration
+## Usage
+
+```shell script
+yarn add @verto/tippar
+```
 
 #### `chooseRecipient`
 
@@ -41,7 +46,7 @@ async function chooseRecipient(client: Arweave, contract: string, mode?: string)
 **Example:**
 
 ```js
-import { chooseRecipient } from "@th8ta/tippar;
+import { chooseRecipient } from "@verto/tippar;
 
 async function someUserInteraction() {
   ...
