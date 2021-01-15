@@ -24,16 +24,18 @@ export async function chooseRecipient(
   let chosenRecipient: string;
 
   // Add the liquid balance and the vault balances
-  for (const addr of Object.keys(vault)) {
-    if (!vault[addr].length) continue;
+  if (vault) {
+    for (const addr of Object.keys(vault)) {
+      if (!vault[addr].length) continue;
 
-    const vaultBalance = vault[addr]
-      .map((a: { balance: any }) => a.balance)
-      .reduce((a: any, b: any) => a + b, 0);
-    if (addr in balances) {
-      balances[addr] += vaultBalance;
-    } else {
-      balances[addr] = vaultBalance;
+      const vaultBalance = vault[addr]
+        .map((a: { balance: any }) => a.balance)
+        .reduce((a: any, b: any) => a + b, 0);
+      if (addr in balances) {
+        balances[addr] += vaultBalance;
+      } else {
+        balances[addr] = vaultBalance;
+      }
     }
   }
 
